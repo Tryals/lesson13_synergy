@@ -1,34 +1,41 @@
 import random
 
-matrix1 = []
-for i in range(10):
-    row = []
-    for j in range(10):
-        row.append(random.randint(-50, 50))
-    matrix1.append(row)
+def create_matrix(rows, cols, min_val=-50, max_val=50):
+    matrix = []
+    for i in range(rows):
+        row = []
+        for j in range(cols):
+            row.append(random.randint(min_val, max_val))
+        matrix.append(row)
+    return matrix
 
-matrix2 = []
-for i in range(10):
-    row = []
-    for j in range(10):
-        row.append(random.randint(-50, 50))
-    matrix2.append(row)
+def print_matrix(matrix, name="Матрица"):
+    print(f"\n{name} ({len(matrix)}x{len(matrix[0])}):")
+    for row in matrix:
+        print(row)
 
-print("Матрица 1:")
-for row in matrix1:
-    print(row)
+def add_matrices(matrix_a, matrix_b):
+    rows = len(matrix_a)
+    cols = len(matrix_a[0])
+    result = []
+    for i in range(rows):
+        row = []
+        for j in range(cols):
+            row.append(matrix_a[i][j] + matrix_b[i][j])
+        result.append(row)
+    return result
 
-print("\nМатрица 2:")
-for row in matrix2:
-    print(row)
+rows = int(input("Введите количество строк: "))
+cols = int(input("Введите количество столбцов: "))
 
-matrix3 = []
-for i in range(10):
-    row = []
-    for j in range(10):
-        row.append(matrix1[i][j] + matrix2[i][j])
-    matrix3.append(row)
+min_val = int(input("Введите минимальное значение для случайных чисел: "))
+max_val = int(input("Введите максимальное значение для случайных чисел: "))
 
-print("\nСумма матриц (Матрица 3):")
-for row in matrix3:
-    print(row)
+matrix1 = create_matrix(rows, cols, min_val, max_val)
+matrix2 = create_matrix(rows, cols, min_val, max_val)
+
+print_matrix(matrix1, "Матрица 1")
+print_matrix(matrix2, "Матрица 2")
+
+matrix3 = add_matrices(matrix1, matrix2)
+print_matrix(matrix3, "Сумма матриц (Матрица 3)")
